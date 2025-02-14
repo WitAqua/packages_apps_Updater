@@ -85,18 +85,18 @@ public class Utils {
     // used to initialize UpdateInfo objects
     private static UpdateInfo parseJsonUpdate(JSONObject object) throws JSONException {
         Update update = new Update();
-        update.setTimestamp(object.getLong("timestamp"));
+        update.setDownloadUrl(object.getString("downloadUrl"));
+        update.setVersion(object.getString("latestAndroidVersion"));
+        update.setTimestamp(object.getLong("datetime"));
         update.setName(object.getString("filename"));
         update.setDownloadId(object.getString("md5"));
         update.setFileSize(object.getLong("size"));
-        update.setDownloadUrl(object.getString("download"));
-        update.setVersion(object.getString("version"));
         return update;
     }
 
     public static boolean isCompatible(UpdateBaseInfo update) {
         if (!SystemProperties.getBoolean(Constants.PROP_UPDATER_ALLOW_DOWNGRADING, false) &&
-                update.getTimestamp() <= SystemProperties.getLong(Constants.PROP_BUILD_DATE, 0)) {
+                update.getTimestamp() <= SystemProperties.getLong(Constants.PROP_BUILD_DATE, 0 )) {
             Log.d(TAG, update.getName() + " is older than/equal to the current build");
             return false;
         }
@@ -134,20 +134,25 @@ public class Utils {
         }
 
         JSONObject obj = new JSONObject(json.toString());
-        JSONArray updatesList = obj.getJSONArray("response");
+        JSONArray updatesList = obj.getJSONArray("devices");
         for (int i = 0; i < updatesList.length(); i++) {
-            if (updatesList.isNull(i)) {
-                continue;
-            }
-            try {
-                UpdateInfo update = parseJsonUpdate(updatesList.getJSONObject(i));
-                if (!compatibleOnly || isCompatible(update)) {
-                    updates.add(update);
-                } else {
-                    Log.d(TAG, "Ignoring incompatible update " + update.getName());
+            JSONObject device = updatesList.getJSONObject(i);
+            String codename = device.getString("codename");
+            if (codename.equals(android.os.Build.DEVICE)) {
+                    Log.d("Updater", "Matching device found: " + device.getString("codename"));
+                try {
+                    UpdateInfo update = parseJsonUpdate(updatesList.getJSONObject(i));
+                    if (!compatibleOnly || isCompatible(update)) {
+                        updates.add(update);
+                    } else {
+                        Log.d(TAG, "Ignoring incompatible update " + update.getName());
+                    }
+                } catch (JSONException e) {
+                    Log.e(TAG, "Could not parse update object, index=" + i, e);
                 }
-            } catch (JSONException e) {
-                Log.e(TAG, "Could not parse update object, index=" + i, e);
+                if (updatesList.isNull(i)) {
+                    continue;
+                }
             }
         }
 
@@ -159,8 +164,7 @@ public class Utils {
                 SystemProperties.get(Constants.PROP_DEVICE));
 
         String serverUrl = context.getString(R.string.updater_server_url);
-
-        return serverUrl.replace("{device}", device);
+        return serverUrl;
     }
 
     public static String getUpgradeBlockedURL(Context context) {
