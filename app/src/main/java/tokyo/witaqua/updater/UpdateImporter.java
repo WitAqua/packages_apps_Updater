@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2022 The LineageOS Project
+ * Copyright (C) 2017-2025 The LineageOS Project
  * Copyright (C) 2020-2022 SHIFT GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,13 +23,10 @@ import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
-import org.json.JSONException;
 import tokyo.witaqua.updater.controller.UpdaterController;
-import tokyo.witaqua.updater.controller.UpdaterService;
 import tokyo.witaqua.updater.misc.StringGenerator;
 import tokyo.witaqua.updater.misc.Utils;
 import tokyo.witaqua.updater.model.Update;
-import tokyo.witaqua.updater.model.UpdateInfo;
 import tokyo.witaqua.updater.model.UpdateStatus;
 
 import java.io.File;
@@ -41,7 +38,6 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 

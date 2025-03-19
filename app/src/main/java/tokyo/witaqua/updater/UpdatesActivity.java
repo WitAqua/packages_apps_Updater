@@ -145,6 +145,12 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
                 } else if (UpdaterController.ACTION_UPDATE_REMOVED.equals(intent.getAction())) {
                     String downloadId = intent.getStringExtra(UpdaterController.EXTRA_DOWNLOAD_ID);
                     mAdapter.removeItem(downloadId);
+                    List<UpdateInfo> sortedUpdates =
+                            mUpdaterService.getUpdaterController().getUpdates();
+                    if (sortedUpdates.isEmpty()) {
+                        findViewById(R.id.no_new_updates_view).setVisibility(View.VISIBLE);
+                        findViewById(R.id.recycler_view).setVisibility(View.GONE);
+                    }
                 }
             }
         };
@@ -224,6 +230,8 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
             findViewById(R.id.refresh).setOnClickListener(v -> downloadUpdatesList(true));
             findViewById(R.id.preferences).setOnClickListener(v -> showPreferencesDialog());
         }
+
+        maybeShowWelcomeMessage();
     }
 
     @Override
@@ -657,6 +665,21 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
                                 String.valueOf(enableRecoveryUpdate));
                     }
                 })
+                .show();
+    }
+
+    private void maybeShowWelcomeMessage() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean alreadySeen = preferences.getBoolean(Constants.HAS_SEEN_WELCOME_MESSAGE, false);
+        if (alreadySeen) {
+            return;
+        }
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.welcome_title)
+                .setMessage(R.string.welcome_message)
+                .setPositiveButton(R.string.info_dialog_ok, (dialog, which) -> preferences.edit()
+                        .putBoolean(Constants.HAS_SEEN_WELCOME_MESSAGE, true)
+                        .apply())
                 .show();
     }
 }

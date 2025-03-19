@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2022 The LineageOS Project
+ * Copyright (C) 2017-2025 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,6 @@ import androidx.preference.PreferenceManager;
 import tokyo.witaqua.updater.R;
 import tokyo.witaqua.updater.UpdaterReceiver;
 import tokyo.witaqua.updater.UpdatesActivity;
-import tokyo.witaqua.updater.misc.BuildInfoUtils;
 import tokyo.witaqua.updater.misc.Constants;
 import tokyo.witaqua.updater.misc.StringGenerator;
 import tokyo.witaqua.updater.misc.Utils;
@@ -46,7 +45,6 @@ import tokyo.witaqua.updater.model.Update;
 import tokyo.witaqua.updater.model.UpdateInfo;
 import tokyo.witaqua.updater.model.UpdateStatus;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -127,7 +125,7 @@ public class UpdaterService extends Service {
                 } else if (UpdaterController.ACTION_UPDATE_REMOVED.equals(intent.getAction())) {
                     final boolean isLocalUpdate = Update.LOCAL_ID.equals(downloadId);
                     Bundle extras = mNotificationBuilder.getExtras();
-                    if (extras != null && !isLocalUpdate && downloadId.equals(
+                    if (!isLocalUpdate && downloadId != null && downloadId.equals(
                             extras.getString(UpdaterController.EXTRA_DOWNLOAD_ID))) {
                         mNotificationBuilder.setExtras(null);
                         UpdateInfo update = mUpdaterController.getUpdate(downloadId);
