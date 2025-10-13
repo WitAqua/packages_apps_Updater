@@ -60,7 +60,7 @@
     <string name="menu_show_changelog">Mostrar alterações</string>
     <string name="menu_ab_perf_mode">Priorizar o processo de atualização</string>
     <string name="menu_update_recovery">Atualizar recuperação</string>
-    <string name="toast_forced_update_recovery">Não é possível desativar as atualizações do Lineage Recovery neste dispositivo.</string>
+    <string name="toast_forced_update_recovery">Não é possível desativar as atualizações do WitAqua Recovery neste dispositivo.</string>
     <string name="snack_updates_found">Novas atualizações disponíveis</string>
     <string name="snack_no_updates_found">Não foram encontradas novas atualizações</string>
     <string name="snack_updates_check_failed">Falha ao buscar atualizações. Verifique sua conexão com a internet e tente novamente.</string>
@@ -128,6 +128,6 @@
     <string name="local_update_import_failure">Falha ao importar a atualização local</string>
     <string name="local_update_import_install">Instalar</string>
     <string name="local_update_name">Atualização local</string>
-    <string name="welcome_title">Boas vindas</string>
+    <string name="welcome_title">Boas-vindas</string>
     <string name="welcome_message">Observe que quando há várias atualizações disponíveis, não há necessidade de instalar todas, você sempre pode instalar a mais recente e então apagar atualizações antigas para liberar espaço de armazenamento.</string>
 </resources>
