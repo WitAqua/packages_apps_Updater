@@ -44,7 +44,7 @@ fi
 # Assume WitAqua-VERSION-DATE-*.zip
 zip_name=`basename "$zip_path"`
 id=`echo "$zip_name" | sha1sum | cut -d' ' -f1`
-version=`echo "$zip_name" | cut -d'-' -f2`
+version=`echo "$zip_name" | cut -d'-' -f5 | sed 's/^v//'`
 build_date=`echo "$zip_name" | cut -d'-' -f3 | cut -d'_' -f1`
 if [ "`uname`" = "Darwin" ]; then
     timestamp=`date -jf "%Y%m%d %H:%M:%S" "$build_date 23:59:59" +%s`
@@ -61,8 +61,8 @@ $ADB shell chmod 664 "$zip_path_device"
 # Kill the app before updating the database
 $ADB shell "killall tokyo.witaqua.updater 2>/dev/null"
 $ADB shell "sqlite3 /data/data/tokyo.witaqua.updater/databases/updates.db" \
-    "\"INSERT INTO updates (status, path, download_id, timestamp, type, version, size)" \
-    "  VALUES ($status, '$zip_path_device', '$id', $timestamp, '$type', '$version', $size)\""
+    "\"INSERT INTO updates (status, path, download_id, timestamp, version, size)" \
+    "  VALUES ($status, '$zip_path_device', '$id', $timestamp, '$version', $size)\""
 
 # Exit root mode
 $ADB unroot
