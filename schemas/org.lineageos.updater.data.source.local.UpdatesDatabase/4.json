@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 4,
-    "identityHash": "ce9876a3e5aea7f5d104d50f4b2400bc",
+    "identityHash": "0c6ac1013f8bb74b26697da3d1063ebd",
     "entities": [
       {
         "tableName": "updates",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`download_id` TEXT NOT NULL, `status` INTEGER NOT NULL, `path` TEXT, `timestamp` INTEGER NOT NULL, `type` TEXT, `version` TEXT NOT NULL, `size` INTEGER NOT NULL, `name` TEXT NOT NULL, `os_patch_level` TEXT, `os_sdk_level` INTEGER, `payload_metadata_offset` INTEGER, `payload_metadata_size` INTEGER, `payload_offset` INTEGER, `payload_size` INTEGER, `payload_properties_offset` INTEGER, `payload_properties_size` INTEGER, `download_url` TEXT, PRIMARY KEY(`download_id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`download_id` TEXT NOT NULL, `status` INTEGER NOT NULL, `path` TEXT, `timestamp` INTEGER NOT NULL, `version` TEXT NOT NULL, `size` INTEGER NOT NULL, `name` TEXT NOT NULL, `os_patch_level` TEXT, `os_sdk_level` INTEGER, `payload_metadata_offset` INTEGER, `payload_metadata_size` INTEGER, `payload_offset` INTEGER, `payload_size` INTEGER, `payload_properties_offset` INTEGER, `payload_properties_size` INTEGER, `download_url` TEXT, PRIMARY KEY(`download_id`))",
         "fields": [
           {
             "fieldPath": "downloadId",
@@ -30,11 +30,6 @@
             "columnName": "timestamp",
             "affinity": "INTEGER",
             "notNull": true
-          },
-          {
-            "fieldPath": "type",
-            "columnName": "type",
-            "affinity": "TEXT"
           },
           {
             "fieldPath": "version",
@@ -110,7 +105,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ce9876a3e5aea7f5d104d50f4b2400bc')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0c6ac1013f8bb74b26697da3d1063ebd')"
     ]
   }
 }
