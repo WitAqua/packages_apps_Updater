@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: WitAqua
+     SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="180dp"
+    android:height="180dp"
+    android:viewportWidth="180"
+    android:viewportHeight="180">
+    <group
+        android:translateX="-10">
+      <path
+          android:pathData="m102.95,24.18c0,0 -96.73,154.98 0.85,154.92 102.52,-0.06 -0.85,-154.92 -0.85,-154.92z"
+          android:fillColor="#FFFFFFFF">
+      </path>
+    </group>
+</vector>

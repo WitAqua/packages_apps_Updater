@@ -37,7 +37,6 @@ abstract class UpdatesDatabase : RoomDatabase() {
                         `size` INTEGER NOT NULL,
                         `status` INTEGER NOT NULL,
                         `timestamp` INTEGER NOT NULL,
-                        `type` TEXT,
                         `version` TEXT NOT NULL,
                         PRIMARY KEY(`download_id`)
                     )
@@ -46,9 +45,9 @@ abstract class UpdatesDatabase : RoomDatabase() {
                 db.execSQL(
                     """
                     INSERT INTO `updates_new` (`download_id`, `status`, `path`,
-                        `timestamp`, `type`, `version`, `size`, `name`)
+                        `timestamp`, `version`, `size`, `name`)
                     SELECT `download_id`, IFNULL(`status`, 0), `path`,
-                        IFNULL(`timestamp`, 0), `type`, IFNULL(`version`, ''), IFNULL(`size`, 0),
+                        IFNULL(`timestamp`, 0), IFNULL(`version`, ''), IFNULL(`size`, 0),
                         COALESCE(REPLACE(`path`, RTRIM(`path`, REPLACE(`path`, '/', '')), ''), '')
                     FROM `updates`
                     """.trimIndent()
